@@ -1,5 +1,8 @@
 <template>
-	<h1>{{ text }}: {{ value }}</h1>
+	<div>
+		<span>{{ text }}</span>
+		{{ value }}
+	</div>
 </template>
 
 <script>
@@ -7,7 +10,7 @@ export default {
 	name: "Value",
 	props: {
 		text: String,
-		value: Number
+		value: String
 	}
 };
 </script>
