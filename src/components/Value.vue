@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<span>{{ text }}</span>
-		{{ value }}
+		<span class="upload-block__filename-label">{{ text }}</span>
+		<span class="upload-block__filename-text">{{ value }}</span>
 	</div>
 </template>
 
@@ -15,5 +15,5 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 </style>

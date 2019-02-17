@@ -1,7 +1,8 @@
 <template>
 	<div id="app">
-		<h1>Brightness & Contrast Developer Test
-			<br>01 Jun, 2018 – 31 Dec, 2019
+		<h1>
+			Brightness & Contrast Developer Test
+			<small>01 Jun, 2018 – 31 Dec, 2019</small>
 		</h1>
 		<Canvas
 			:width="375"
@@ -13,18 +14,6 @@
 		/>
 		<Avatar :avatarFile="this.avatarFile" :avatarName="this.avatarName"/>
 		<div class="slider-block slider-block--green">
-			<h2>Contrast</h2>
-			<Slider
-				:min="-100"
-				:max="100"
-				:value="this.contrast"
-				:step="1"
-				name="contrast"
-				v-on:updateFilterValue="updateFilterValue"
-			/>
-			<p>Slide to adjust image brightness! ☀️</p>
-		</div>
-		<div class="slider-block slider-block--blue">
 			<h2>Brightness</h2>
 			<Slider
 				:min="-100"
@@ -34,14 +23,31 @@
 				name="brightness"
 				v-on:updateFilterValue="updateFilterValue"
 			/>
+			<p>Slide to adjust image brightness! ☀️</p>
+		</div>
+		<div class="slider-block slider-block--blue">
+			<h2>Contrast</h2>
+			<Slider
+				:min="-100"
+				:max="100"
+				:value="this.contrast"
+				:step="1"
+				name="contrast"
+				v-on:updateFilterValue="updateFilterValue"
+			/>
 			<p>Slide to adjust image contrast! 🌓</p>
 		</div>
 		<div class="upload-block">
-			<img src="./assets/cat1.png" alt="Previous image">
+			<img src="./assets/images/cat1.png" alt="Previous image" class="upload-block__image">
 			<div class="upload-block__files">
 				<Value text="Name" :value="this.imageFileName" class="upload-block__filename"/>
 				<File accept=".jpg, .png" v-on:updateFile="updateFile" class="upload-block__fileinput"/>
 			</div>
+		</div>
+		<div class="pixel-perfect">
+			<input type="checkbox" id="pixel-perfect" class="pixel-perfect__checkbox">
+			<label for="pixel-perfect">Pixel test</label>
+			<div class="pixel-perfect__image"/>
 		</div>
 	</div>
 </template>
@@ -66,9 +72,9 @@ export default {
 			brightness: 0,
 			contrast: 0,
 			avatarName: "Jon",
-			avatarFile: require("./assets/jon.jpg"),
-			imageFileName: "./assets/cat1.png",
-			imageFile: require("./assets/cat1.png"),
+			avatarFile: require("./assets/images/jon.jpg"),
+			imageFileName: "A LONG FILE NAME THAT IS LONG.JPG",
+			imageFile: require("./assets/images/cat1.png"),
 			imageData: null,
 			imageDataFiltered: null
 		};
@@ -128,79 +134,73 @@ export default {
 </script>
 
 <style lang="scss">
+	* {
+		margin: 0;
+		border: 0;
+		padding: 0;
+	}
+	*,
+	*:before,
+	*:after {
+		box-sizing: border-box;
+	}
+	body {
+		background: #fafafa;
+	}
+	@font-face {
+		font-family: "Graphik";
+		font-weight: 400;
+		font-display: swap;
+		src: url("./assets/fonts/Graphik-Regular.woff2") format("woff2");
+	}
+	@font-face {
+		font-family: "Graphik";
+		font-weight: 700;
+		font-display: swap;
+		src: url("./assets/fonts/Graphik-Medium.woff2") format("woff2");
+	}
 	#app {
 		background: #fff;
 		margin: 50px auto 0 auto;
-		padding-bottom: 20px;
 		width: 375px;
-		font-family: "Graphik-Regular";
+		font-family: "Graphik";
 		font-weight: normal;
+		position: relative;
 	}
 	h1 {
-		font-family: "Graphik-Regular";
-		font-weight: normal;
+		font-weight: 700;
 		background: #7344c0;
 		line-height: 20px;
 		text-align: center;
-		font-size: 13px;
-		padding: 10px;
+		font-size: 15px;
+		padding: 16px 10px 14px 10px;
 		color: #fff;
+		small {
+			display: block;
+			font-weight: 400;
+			font-size: 13px;
+		}
 	}
 	h2 {
-		font-family: "Graphik-Medium";
-		font-weight: normal;
 		font-size: 18px;
 	}
-	.upload-block {
-		border-radius: 5px;
-		box-shadow: inset 1px 0px 0px 0px #dcdee4, inset 0px -1px 0px 0px #dcdee4,
-			inset -1px 0px 0px 0px #dcdee4;
-		margin: 30px 20px 0 20px;
-		overflow: hidden;
-		text-transform: uppercase;
-		font-size: 11px;
-		&__files {
-			display: flex;
-			justify-content: space-between;
-			padding: 10px;
-			position: relative;
-		}
-		&__filename {
-			flex: 0 0 calc(75% - 35px);
-			max-width: calc(75% - 35px);
-			border-radius: 5px;
-			background: #fff;
-			border: 1px solid #dcdee4;
-			color: #25a95b;
-			overflow: hidden;
-			span {
-				padding: 10px;
-				color: #8392A6;
-				display: inline-block;
-				margin-right: 10px;
-				position: relative;
-					background: #f6f8fa;
-					border-right: 1px solid #dcdee4;
-			}
-		}
-		&__fileinput {
-			flex: 0 0 25%;
-			max-width: 25%;
-			overflow: hidden;
-		}
-		img {
-			display: block;
-			max-width: 100%;
-		}
+	.avatar {
+		width: 64px;
+		height: 64px;
+		border-radius: 50%;
+		border: 2px solid #fff;
+		display: block;
+		margin: -56px auto 5px auto;
+		transform: translatez(0);
 	}
 	.slider-block {
 		border-radius: 5px;
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-		margin: 0 20px 10px 20px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.125);
+		margin: 0 20px 7px 20px;
 		color: #42506b;
 		text-align: center;
 		font-size: 13px;
-		padding: 10px 20px;
+		padding: 10px 20px 4px 20px;
 		&--green {
 			--dark: #25a95b;
 			--light: #c7e9d5;
@@ -211,10 +211,158 @@ export default {
 		}
 		h2 {
 			color: var(--dark);
+			font-weight: 700;
 			margin-bottom: 10px;
 		}
-		[type="range"] {
-			margin-bottom: 10px;
+		&__pseudo-slider {
+			position: relative;
+			z-index: 0;
+			&::before,
+			&::after {
+				border-radius: 10px;
+				height: inherit;
+				position: absolute;
+				height: 5px;
+				top: 6px;
+				left: 0;
+				display: block;
+				content: "";
+				z-index: -1;
+			}
+			&::before {
+				background: var(--light);
+				width: 100%;
+			}
+			&::after {
+				width: calc((50% + var(--width)) + var(--offset));
+				background: var(--dark);
+			}
+		}
+	}
+	.upload-block {
+		border-radius: 5px;
+		box-shadow: inset 1px 0px 0px 0px #dcdee4, inset 0px -1px 0px 0px #dcdee4,
+			inset -1px 0px 0px 0px #dcdee4;
+		margin: 29px 20px 0 20px;
+		overflow: hidden;
+		text-transform: uppercase;
+		font-size: 13px;
+		font-weight: 700;
+		&__image {
+			display: block;
+			object-fit: cover;
+			object-position: center;
+			width: 100%;
+			height: 212px;
+		}
+		&__files {
+			display: flex;
+			justify-content: space-between;
+			padding: 18px 9px 7px 8px;
+			position: relative;
+			span,
+			button {
+				padding-top: 9px;
+				padding-bottom: 8px;
+				font-size: 11px;
+			}
+		}
+		&__filename {
+			flex: 0 0 calc(75% - 32px);
+			display: flex;
+			max-width: calc(75% - 32px);
+			border-radius: 5px;
+			background: #fff;
+			border: 1px solid #dcdee4;
+			color: #25a95b;
+			overflow: hidden;
+			letter-spacing: 1px;
+			&-label {
+				width: 60px;
+				color: #8392a6;
+				display: inline-block;
+				position: relative;
+				background: #f6f8fa;
+				border-right: 1px solid #dcdee4;
+				padding-left: 10px;
+			}
+			&-text {
+				width: calc(100% - 65px);
+				padding-left: 5px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		}
+		&__fileinput {
+			flex: 0 0 87px;
+			max-width: 87px;
+			overflow: hidden;
+		}
+		&__label {
+			border-radius: 5px;
+			background: #fff;
+			border: 1px solid #dcdee4;
+			color: #4a90e2;
+			width: 100%;
+			text-transform: inherit;
+			font-size: 11px;
+			padding-bottom: 7px;
+			font-weight: 700;
+			text-align: right;
+			padding-right: 9px;
+			padding-top: 9px;
+			letter-spacing: 1px;
+			display: block;
+			&::before {
+				display: inline-block;
+				content: "";
+				width: 0;
+				height: 0;
+				border-style: solid;
+				border-radius: 2px;
+				border-width: 0 6px 9px 6px;
+				margin-right: 5px;
+				border-color: transparent transparent #007bff transparent;
+				transform: rotate(360deg);
+			}
+		}
+		[type="file"] {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			opacity: 0;
+			width: 100%;
+		}
+	}
+	.pixel-perfect {
+		background: #fafafa;
+		color: #666;
+		margin-top: 20px;
+		padding: 10px 20px;
+		font-size: 14px;
+		text-transform: uppercase;
+		&__checkbox {
+			position: relative;
+			top: 2px;
+			margin-right: 10px;
+			opacity: 0.5;
+		}
+		&__image {
+			background: url(./assets/images/pixel-perfect.png);
+			filter: invert(100%);
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 782px;
+			opacity: 0.5;
+			display: none;
+			@at-root input:checked ~ & {
+				display: block;
+			}
 		}
 	}
 </style>

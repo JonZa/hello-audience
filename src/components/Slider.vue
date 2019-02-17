@@ -1,12 +1,18 @@
 <template>
-	<input
-		type="range"
-		:min="min"
-		:max="max"
-		:step="step"
-		v-model.number="sliderValue"
-		v-on:input="$emit('updateFilterValue', name, sliderValue)"
+	<div
+		class="slider-block__pseudo-slider"
+		:style="{ '--width': sliderValue/2 + '%', '--offset': (sliderValue/100*(21/2)*-1) + 'px' }"
 	>
+		<input
+			class="slider-block__slider"
+			type="range"
+			:min="min"
+			:max="max"
+			:step="step"
+			v-model.number="sliderValue"
+			v-on:input="$emit('updateFilterValue', name, sliderValue)"
+		>
+	</div>
 </template>
  
 <script>
@@ -33,24 +39,22 @@ export default {
 	// Author: Darlan Rod https://github.com/darlanrod
 	// Version 1.5.1
 	// MIT License
-
-	$track-color: var(--light) !default;
+	$track-color: transparent !default;
 	$thumb-color: var(--dark) !default;
-
 	$thumb-radius: 50% !default;
-	$thumb-height: 22px !default;
-	$thumb-width: 22px !default;
+	$thumb-height: 21px !default;
+	$thumb-width: 21px !default;
 	$thumb-shadow-size: 0 !default;
 	$thumb-shadow-blur: 0 !default;
-	$thumb-shadow-color: rgba(0, 0, 0, 0.2) !default;
+	$thumb-shadow-color: transparent !default;
 	$thumb-border-width: 3px !default;
 	$thumb-border-color: #fff !default;
 
 	$track-width: 100% !default;
-	$track-height: 8px !default;
+	$track-height: 5px !default;
 	$track-shadow-size: 0 !default;
 	$track-shadow-blur: 0 !default;
-	$track-shadow-color: rgba(0, 0, 0, 0.2) !default;
+	$track-shadow-color: transparent !default;
 	$track-border-width: 0 !default;
 	$track-border-color: #f00 !default;
 
@@ -83,37 +87,29 @@ export default {
 		height: $thumb-height + $adjustment;
 		width: $thumb-width + $adjustment;
 	}
-
 	@mixin disabled {
 		cursor: not-allowed;
 	}
-
-	[type="range"] {
+	.slider-block__slider {
+		margin-bottom: 16px;
 		-webkit-appearance: none;
-		background: transparent;
-		// margin: $thumb-height / 2 0;
+		background: transparent; // margin: $thumb-height / 2 0;
 		width: $track-width;
-
 		&::-moz-focus-outer {
 			border: 0;
 		}
-
 		&:focus {
 			outline: 0;
-
 			&::-webkit-slider-runnable-track {
 				background: $track-color;
 			}
-
 			&::-ms-fill-lower {
 				background: $track-color;
 			}
-
 			&::-ms-fill-upper {
 				background: $track-color;
 			}
 		}
-
 		&::-webkit-slider-runnable-track {
 			@include track;
 			@include shadow(
@@ -125,7 +121,6 @@ export default {
 			border: $track-border-width solid $track-border-color;
 			border-radius: $track-radius;
 		}
-
 		&::-webkit-slider-thumb {
 			@include thumb;
 			-webkit-appearance: none;
@@ -133,7 +128,6 @@ export default {
 				(-$track-border-width * 2 + $track-height) / 2 - $thumb-height / 2
 			);
 		}
-
 		&::-moz-range-track {
 			@include shadow(
 				$track-shadow-size,
@@ -146,11 +140,9 @@ export default {
 			border-radius: $track-radius;
 			height: $track-height / 2;
 		}
-
 		&::-moz-range-thumb {
 			@include thumb(-4);
 		}
-
 		&::-ms-track {
 			@include track;
 			background: transparent;
@@ -158,7 +150,6 @@ export default {
 			border-width: ($thumb-height / 2) 0;
 			color: transparent;
 		}
-
 		&::-ms-fill-lower {
 			@include shadow(
 				$track-shadow-size,
@@ -169,7 +160,6 @@ export default {
 			border: $track-border-width solid $track-border-color;
 			border-radius: ($track-radius * 2);
 		}
-
 		&::-ms-fill-upper {
 			@include shadow(
 				$track-shadow-size,
@@ -180,33 +170,26 @@ export default {
 			border: $track-border-width solid $track-border-color;
 			border-radius: ($track-radius * 2);
 		}
-
 		&::-ms-thumb {
 			@include thumb(-4);
 			margin-top: $track-height / 4;
 		}
-
 		&:disabled {
 			&::-webkit-slider-thumb {
 				@include disabled;
 			}
-
 			&::-moz-range-thumb {
 				@include disabled;
 			}
-
 			&::-ms-thumb {
 				@include disabled;
 			}
-
 			&::-webkit-slider-runnable-track {
 				@include disabled;
 			}
-
 			&::-ms-fill-lower {
 				@include disabled;
 			}
-
 			&::-ms-fill-upper {
 				@include disabled;
 			}

@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<button>Upload</button>
-		<input type="file" :accept="accept" v-on:change="updateFile">
+		<label for="upload-block__file-input" class="upload-block__label">Upload</label>
+		<input id="upload-block__file-input" type="file" :accept="accept" v-on:change="updateFile">
 	</div>
 </template>
  
@@ -27,26 +27,5 @@ export default {
 };
 </script> 
  
-<style lang="scss" scoped>
-	div {
-		button {
-			border-radius: 5px;
-			background: #fff;
-			border: 1px solid #dcdee4;
-			color: #4A90E2;
-			padding: 10px;
-			width: 100%;
-			text-transform: inherit;
-			font-size: inherit;
-		}
-		[type="file"] {
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			opacity: 0;
-			width: 100%;
-		}
-	}
+<style>
 </style> 
