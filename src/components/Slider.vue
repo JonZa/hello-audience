@@ -91,7 +91,7 @@ export default {
 		cursor: not-allowed;
 	}
 	.slider-block__slider {
-		margin-bottom: 16px;
+		height: 15px;
 		-webkit-appearance: none;
 		background: transparent; // margin: $thumb-height / 2 0;
 		width: $track-width;

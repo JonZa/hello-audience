@@ -200,7 +200,7 @@ export default {
 		color: #42506b;
 		text-align: center;
 		font-size: 13px;
-		padding: 10px 20px 4px 20px;
+		padding: 10px 20px 3px 20px;
 		&--green {
 			--dark: #25a95b;
 			--light: #c7e9d5;
@@ -217,6 +217,7 @@ export default {
 		&__pseudo-slider {
 			position: relative;
 			z-index: 0;
+			margin-bottom: 10px;
 			&::before,
 			&::after {
 				border-radius: 10px;
